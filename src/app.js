@@ -9,9 +9,9 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 
-//google authentication setup
+//google authentication setup //It activates Passport so authentication can work in your app.
+//passport.authenticate() will fail ❌ //req.user will be undefined ❌ //Strategies (JWT, Google) won’t run ❌
 app.use(passport.initialize());
-
 
 //routes- /api/pos/
 app.use("/api/post", postRoute);
