@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default:
         "https://ik.imagekit.io/hnoglyswo0/avatar-photo-default-user-icon-600nw-2558759027.webp",
+      //if user ki image nahi dalenga to bydefauult ye image dikhe profile me.
     },
     private: {
       type: Boolean,
@@ -56,7 +57,7 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-// kisi bhi user ki google id null hay to usko delete kar diya jayega. if googleif =d nahi milti to error throw hota hay duplicate key ka.
+// kisi bhi user ki google id null hay to usko delete kar diya jayega. if googleif id nahi milti to error throw hota hay duplicate key ka.
 userSchema.index({ googleId: "1" }, { sparse: true, unique: true });
 
 const userModel = mongoose.model("User", userSchema); //create cullection name user.

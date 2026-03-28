@@ -1,25 +1,30 @@
 import { Router } from "express";
-import { registerValidation } from "../validator/auth.validator.js";
-import { register } from "../controllers/auth.controller.js";
-import { googleAuthCallback } from "../controllers/auth.controller.js";
+import {
+  registerValidation,
+  loginValidationRules,
+} from "../validator/auth.validator.js";
+import {
+  register,
+  login,
+  getMe,
+  googleAuthCallback,
+} from "../controllers/auth.controller.js";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { config } from "../config/config.js";
-
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: config.GOOGLE_CLIENT_ID,
       clientSecret: config.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/api/auth/google/callback",
+      callbackURL: "http://localhost:8080/api/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       return done(null, profile);
     },
   ),
 );
-
 
 const router = Router();
 
@@ -29,8 +34,12 @@ router.post("/register", registerValidation, register, (res, req) => {
 });
 
 //POST /api/auth/login
-router.post("/login", (req, res) => {
+router.post("/login", loginValidationRules, login, (req, res) => {
   res.json({ message: "Login endpoint" });
+});
+
+router.get("/get-me", getMe, (req, res) => {
+  res.json({ message: "Me endpoint" });
 });
 
 //POST /api/auth/logout
@@ -45,11 +54,14 @@ router.get(
 );
 
 // Route for Google OAuth callback yaha hame user ka data milta hay jab hum authcode exchange karte hay.
-router.get("/google/callback",passport.authenticate("google", { session: false }),(req, res) => {
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
     // Successful authentication, redirect to dashboard or home page
     console.log(req.user, "Google Auth Callback Route.");
   },
-  googleAuthCallback
+  googleAuthCallback,
 );
 
 export default router;

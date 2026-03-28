@@ -66,7 +66,7 @@ export async function login(req, res) {
     $or: [{ email }, { username }], //if dono me sekoi ek chij hame mil jaye to code chal jaye isliye humne $or use kiya hai.
   });
 
-  if (!user) {
+  if (!existingUser) {
     return res.status(400).json({
       message: "Invalid user/email or password",
       success: false,
