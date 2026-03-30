@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    // use to see at what time
   },
 );
 

@@ -26,10 +26,12 @@ const postSchema = new mongoose.Schema({
         required: true,
       },
     },
+    // imbadding - nesting karna ek he document me. jese ki humne media me kiya hay.
+    //refferencing - 
   ],
-  user: {
+  user: {  
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "User",  // this is refferencing 
     required: true,
   },
   timestamp: {

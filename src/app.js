@@ -13,6 +13,8 @@ app.use(morgan("dev"));
 //passport.authenticate() will fail ❌ //req.user will be undefined ❌ //Strategies (JWT, Google) won’t run ❌
 app.use(passport.initialize());
 
+
+
 //routes- /api/pos/
 app.use("/api/post", postRoute);
 app.use("/api/auth", authRoute);
