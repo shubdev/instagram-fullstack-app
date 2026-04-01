@@ -12,3 +12,9 @@ export const createPost = async (req, res) => {
     message: "post created successfully",
   });
 };
+
+export const getposts = async (req, res) => {
+  const { userId } = req.user;
+  const posts = await posts.find({ userId });
+  res.status(200).json(posts);
+};

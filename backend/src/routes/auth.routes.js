@@ -38,7 +38,7 @@ router.post("/login", loginValidationRules, login, (req, res) => {
   res.json({ message: "Login endpoint" });
 });
 
-router.get("/get-me", getMe, (req, res) => {
+router.get("/me", getMe, (req, res) => {
   res.json({ message: "Me endpoint" });
 });
 
